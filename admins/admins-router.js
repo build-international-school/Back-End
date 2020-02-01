@@ -73,7 +73,7 @@ router.put('/:id', (req, res) => {
   .then(admin => {
     if (admin) {
       Admins.update(changes, id)
-      .then(updatedadmin => {
+      .then(() => {
         res.status(201).json({ message: `Admin ${id} successfully updated`});
       });
     } else {

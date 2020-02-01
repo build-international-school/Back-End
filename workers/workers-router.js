@@ -16,11 +16,11 @@ router.get('/:id', (req, res) => {
   const { id } = req.params;
 
   Workers.findById(id)
-  .then(admin => {
-    if (admin) {
-      res.json(admin);
+  .then(worker => {
+    if (worker) {
+      res.json(worker);
     } else {
-      res.status(404).json({ message: 'Could not find admin with given id.' })
+      res.status(404).json({ message: 'Could not find worker with given id.' })
     }
   })
   .catch(err => {
@@ -33,18 +33,18 @@ router.put('/:id', (req, res) => {
   const changes = req.body;
 
   Workers.findById(id)
-  .then(admin => {
-    if (admin) {
+  .then(worker => {
+    if (worker) {
       Workers.update(changes, id)
-      .then(updatedadmin => {
-        res.status(201).json({ message: `Admin ${id} successfully updated`});
+      .then(() => {
+        res.status(201).json({ message: `Worker ${id} successfully updated`});
       });
     } else {
-      res.status(404).json({ message: 'Could not find admin with given id' });
+      res.status(404).json({ message: 'Could not find worker with given id' });
     }
   })
   .catch (err => {
-    res.status(500).json({ message: 'Failed to update admin' });
+    res.status(500).json({ message: 'Failed to update worker' });
   });
 });
 
@@ -54,13 +54,13 @@ router.delete('/:id', (req, res) => {
   Workers.remove(id)
   .then(deleted => {
     if (deleted) {
-      res.status(201).json({ message: `Admin ${id} successfully deleted` });
+      res.status(201).json({ message: `Worker ${id} successfully deleted` });
     } else {
-      res.status(404).json({ message: 'Could not find admin with given id' });
+      res.status(404).json({ message: 'Could not find worker with given id' });
     }
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to delete admin' });
+    res.status(500).json({ message: 'Failed to delete worker' });
   });
 });
 

@@ -59,27 +59,25 @@ router.post('/login', (req, res) => {
         const payload = {...user, token: token}
         res.status(201).json(payload);
       } else {        
-        //
-        console.log('searching workers')
+        // If email not found in admins, search workers:
         Workers.findBy({email})
-        .first()
-        .then(user => {
-          if (user && bcrypt.compareSync(password, user.password)) {
-            const token = signToken(user);
-            req.session.loggedIn = true;
-            req.session.email = user.email;
-            const payload = {...user, token: token}
-            res.status(201).json(payload);
-          } else {        
-            res.status(401).json({ message: 'Invalid Credentials' });
-          }
-        })
-        .catch(error => {
-          console.log(error)
-          res.status(500).json(error);
+          .first()
+          .then(user => {
+            if (user && bcrypt.compareSync(password, user.password)) {
+              const token = signToken(user);
+              req.session.loggedIn = true;
+              req.session.email = user.email;
+              const payload = {...user, token: token}
+              res.status(201).json(payload);
+            } else {        
+              res.status(401).json({ message: 'Invalid email or password' });
+            }
+          })
+          .catch(error => {
+            console.log(error)
+            res.status(500).json(error);
         });
-        //
-        res.status(404).json({ message: 'Unable to find email' });
+        // res.status(404).json({ message: 'Unable to find email' });
       }
     })
     .catch(error => {
