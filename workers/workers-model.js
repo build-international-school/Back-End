@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function add(user) {
-    return db("admins")
+    return db("workers")
         .insert(user, "id")
         .then(ids => {
             const [id] = ids;
@@ -18,31 +18,31 @@ function add(user) {
         });
 }
 function find() {
-    return db("admins").select("id", "first_name", "last_name", "email", "phone", "organization");
+    return db("workers").select("id", "first_name", "last_name", "email", "phone", "organization");
 }
 
 function findBy(filter) {
-    return db("admins")
+    return db("workers")
         .select("id", "first_name", "last_name", "email", "phone", "organization", "password")
         .where(filter);
 }
 
 function findById(id) {
-    return db("admins")
+    return db("workers")
         .select("id", "first_name", "last_name", "email", "phone", "organization")
         .where({ id })
         .first();
 }
 
 function update(changes, id) {
-    return db('admins')
+    return db('workers')
       .where({ id })
       .update(changes)
       .select("id", "first_name", "last_name", "email", "phone", "organization");
   }
 
 function remove(id) {
-    return db('admins')
+    return db('workers')
       .where('id', id)
       .del();
   }

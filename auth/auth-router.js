@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const Admins = require('../admins/admins-model.js');
+const Workers = require('../workers/workers-model.js');
 const verifySession = require('../middleware/session.js')
 const signToken = require('../middleware/signToken.js')
 
@@ -13,18 +14,37 @@ router.post('/register', (req, res) => {
   const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
   user.password = hash;
 
-  Admins.add(user)
-    .then(saved => {
-      const token = signToken(saved);
-      req.session.loggedIn = true;
-      req.session.email = user.email;
-      const payload = {...saved, token: token}
-      res.status(201).json(payload);
-    })
-    .catch(error => {
-      console.log(error)
-      res.status(500).json(error);
+  if (user.type === 'admin'){
+    Admins.add(user)
+      .then(saved => {
+        const token = signToken(saved);
+        req.session.loggedIn = true;
+        req.session.email = user.email;
+        const payload = {...saved, token: token}
+        res.status(201).json(payload);
+      })
+      .catch(error => {
+        console.log(error)
+        res.status(500).json(error);
     });
+  } else if (user.type === 'worker'){
+    Workers.add(user)
+      .then(saved => {
+        const token = signToken(saved);
+        req.session.loggedIn = true;
+        req.session.email = user.email;
+        const payload = {...saved, token: token}
+        res.status(201).json(payload);
+      })
+      .catch(error => {
+        console.log(error)
+        res.status(500).json(error);
+    });
+  } else {
+    return res.status(400).json({ message: 'Invalid user type!' })
+  }
+
+
 });
 
 router.post('/login', (req, res) => {
@@ -38,8 +58,28 @@ router.post('/login', (req, res) => {
         req.session.email = user.email;
         const payload = {...user, token: token}
         res.status(201).json(payload);
-      } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
+      } else {        
+        //
+        console.log('searching workers')
+        Workers.findBy({email})
+        .first()
+        .then(user => {
+          if (user && bcrypt.compareSync(password, user.password)) {
+            const token = signToken(user);
+            req.session.loggedIn = true;
+            req.session.email = user.email;
+            const payload = {...user, token: token}
+            res.status(201).json(payload);
+          } else {        
+            res.status(401).json({ message: 'Invalid Credentials' });
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          res.status(500).json(error);
+        });
+        //
+        res.status(404).json({ message: 'Unable to find email' });
       }
     })
     .catch(error => {
