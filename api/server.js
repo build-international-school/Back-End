@@ -15,6 +15,7 @@ server.use('/api/auth', authRouter);
 server.use('/api/admins', verifyToken, verifySession, adminsRouter);
 
 server.get('/', (req, res) => {
+    res.send(`<h2>Server is running!</h2>`)
     res.status(200).json({ message: "Server is running." });
   });
 

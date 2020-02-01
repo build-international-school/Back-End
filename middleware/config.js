@@ -5,7 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 const sessionConfig = {
-    name: "Sprint Challenge",
+    name: "Lambda Feb 2020 Buildweek",
     resave: false,
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET || "Secrets don't make friends...",

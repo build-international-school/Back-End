@@ -17,26 +17,25 @@ router.post('/register', (req, res) => {
     .then(saved => {
       const token = signToken(saved);
       req.session.loggedIn = true;
-      req.session.username = user.username;
+      req.session.email = user.email;
       const payload = {...saved, token: token}
       res.status(201).json(payload);
     })
     .catch(error => {
+      console.log(error)
       res.status(500).json(error);
     });
 });
 
 router.post('/login', (req, res) => {
-  let { username, password } = req.body;
-
-  Admins.findBy({ username })
+  let { email, password } = req.body;
+  Admins.findBy({email})
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
-
         const token = signToken(user);
         req.session.loggedIn = true;
-        req.session.username = user.username;
+        req.session.email = user.email;
         const payload = {...user, token: token}
         res.status(201).json(payload);
       } else {
@@ -44,6 +43,7 @@ router.post('/login', (req, res) => {
       }
     })
     .catch(error => {
+      console.log(error)
       res.status(500).json(error);
     });
 });
