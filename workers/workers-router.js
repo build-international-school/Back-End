@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
-const Admins = require('./admins-model.js');
+const Workers = require('./workers-model.js');
 
 router.get('/', (req, res) => {
-  Admins.find()
+  Workers.find()
     .then(users => {
       res.status(200).json(users);
     })
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const { id } = req.params;
 
-  Admins.findById(id)
+  Workers.findById(id)
   .then(admin => {
     if (admin) {
       res.json(admin);
@@ -24,44 +24,7 @@ router.get('/:id', (req, res) => {
     }
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to get Admins' });
-  });
-});
-
-router.get('/:id/students', (req, res) => {
-  const { id } = req.params;
-
-  Admins.findStudents(id)
-  .then(steps => {
-    if (steps.length) {
-      res.json(steps);
-    } else {
-      res.status(404).json({ message: 'Could not find steps for given admin' })
-    }
-  })
-  .catch(err => {
-    res.status(500).json({ message: 'Failed to get steps' });
-  });
-});
-
-
-router.post('/:id/students', (req, res) => {
-  const stepData = req.body;
-  const { id } = req.params; 
-
-  Admins.findById(id)
-  .then(admin => {
-    if (admin) {
-      Admins.addStudent(stepData, id)
-      .then(step => {
-        res.status(201).json(step);
-      })
-    } else {
-      res.status(404).json({ message: 'Could not find admin with given id.' })
-    }
-  })
-  .catch (err => {
-    res.status(500).json({ message: 'Failed to create new step' });
+    res.status(500).json({ message: 'Failed to get Workers' });
   });
 });
 
@@ -69,10 +32,10 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  Admins.findById(id)
+  Workers.findById(id)
   .then(admin => {
     if (admin) {
-      Admins.update(changes, id)
+      Workers.update(changes, id)
       .then(updatedadmin => {
         res.status(201).json({ message: `Admin ${id} successfully updated`});
       });
@@ -88,7 +51,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
 
-  Admins.remove(id)
+  Workers.remove(id)
   .then(deleted => {
     if (deleted) {
       res.status(201).json({ message: `Admin ${id} successfully deleted` });

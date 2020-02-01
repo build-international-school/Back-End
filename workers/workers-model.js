@@ -7,9 +7,8 @@ module.exports = {
     findById,
     update,
     remove,
-    findStudents,
-    addStudent
 };
+
 function add(user) {
     return db("admins")
         .insert(user, "id")
@@ -47,19 +46,3 @@ function remove(id) {
       .where('id', id)
       .del();
   }
-
-function findStudents(id) {
-    return db('students as st')
-        .join('admins as r', 'r.id', 'st.recipe_id')
-        .select('r.name', 'st.id as step_id', 'st.step_number', 'st.instructions')
-        .where('st.id', id)
-        .orderBy('st.id');
-}
-
-function addStudent(studentData, id) {
-    const newStudent = {...studentData, admin_id: id}
-    return db('students')
-        .insert(newStudent)
-        .then(() => {
-            return findStudents(id)});
-}
