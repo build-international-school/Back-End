@@ -30,13 +30,12 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/students', (req, res) => {
   const { id } = req.params;
-
   Admins.findStudents(id)
   .then(steps => {
     if (steps.length) {
       res.json(steps);
     } else {
-      res.status(404).json({ message: 'Could not find steps for given admin' })
+      res.status(404).json({ message: `Could not find students for admin: ${id}` })
     }
   })
   .catch(err => {
@@ -46,15 +45,15 @@ router.get('/:id/students', (req, res) => {
 
 
 router.post('/:id/students', (req, res) => {
-  const stepData = req.body;
+  const studentData = req.body;
   const { id } = req.params; 
 
   Admins.findById(id)
   .then(admin => {
     if (admin) {
-      Admins.addStudent(stepData, id)
-      .then(step => {
-        res.status(201).json(step);
+      Admins.addStudent(studentData, id)
+      .then(student => {
+        res.status(201).json(student);
       })
     } else {
       res.status(404).json({ message: 'Could not find admin with given id.' })

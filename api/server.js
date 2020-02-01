@@ -6,6 +6,7 @@ const verifySession = require('../middleware/session.js');
 const authRouter = require('../auth/auth-router.js');
 const adminsRouter = require('../admins/admins-router.js');
 const workersRouter = require('../workers/workers-router.js');
+const studentsRouter = require('../students/students-router.js');
 
 
 const server = express();
@@ -15,6 +16,7 @@ configMiddleware(server);
 server.use('/api/auth', authRouter);
 server.use('/api/admins', verifyToken, verifySession, adminsRouter);
 server.use('/api/workers', verifyToken, verifySession, workersRouter);
+server.use('/api/students', verifyToken, verifySession, studentsRouter);
 
 server.get('/', (req, res) => {
     res.send(`<h2>Server is running!</h2>`)

@@ -50,9 +50,9 @@ function remove(id) {
 
 function findStudents(id) {
     return db('students as st')
-        .join('admins as r', 'r.id', 'st.recipe_id')
-        .select('r.name', 'st.id as step_id', 'st.step_number', 'st.instructions')
-        .where('st.id', id)
+        .join('admins as a', 'a.id', 'st.admin_id')
+        .select('st.*')
+        .where('st.admin_id', id)
         .orderBy('st.id');
 }
 

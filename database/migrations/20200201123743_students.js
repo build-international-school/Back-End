@@ -6,7 +6,7 @@ exports.up = function(knex) {
             tbl.string('first_name',255).notNullable().index();
             tbl.string('last_name',255).notNullable();
             tbl.string('grade', 255);
-            tbl.text('student_address');
+            tbl.text('address');
             tbl.string('img_url', 1024);
             tbl.text('background');
             tbl.string('status', 255);
