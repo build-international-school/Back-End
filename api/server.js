@@ -19,8 +19,7 @@ server.use('/api/workers', verifyToken, verifySession, workersRouter);
 server.use('/api/students', verifyToken, verifySession, studentsRouter);
 
 server.get('/', (req, res) => {
-    res.send(`<h2>Server is running!</h2>`)
-    res.status(200).json({ message: "Server is running." });
+  res.send(`<h2>Server is online!</h2><br><div>Visit: <a href='https://github.com/build-international-school/Back-End'>https://github.com/build-international-school/Back-End</a> for more API info.</div>`)
   });
 
 module.exports = server;
