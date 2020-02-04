@@ -63,7 +63,8 @@ function findPics() {
 }
 
 function addProfilePic(pic) {
-    return db('students').insert(pic, 'id');
+    return db('students')
+        .insert(pic, 'id');
 }
 
 function updateProfilePic(changes, id) {

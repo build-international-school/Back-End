@@ -88,19 +88,20 @@ cloudinary.config({
 
 // POST /api/drivers/:id/image
 router.post('/:id/image', (req, res) => {
-  const file = req.files.image;
+  console.log(req.files)
+  // const file = req.files;
   // console.log(file);
-  cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
-    // console.log('CLOUDINARY', result);
-    Students.addProfilePic({ url: result.url, driver_id: req.params.id })
-      .then(output => {
-        res.json({ success: true, result });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({ message: 'Error uploading to Cloudinary' });
-      });
-  });
+  // cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
+  //   console.log('CLOUDINARY', result);
+  //   Students.addProfilePic({ img_url: result.url, id: req.params.id })
+  //     .then(output => {
+  //       res.json({ success: true, result });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       res.status(500).json({ message: 'Error uploading to Cloudinary' });
+  //     });
+  // });
 });
 
 // PUT /api/drivers/:id/image
