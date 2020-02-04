@@ -22,7 +22,7 @@ function add(user) {
         });
 }
 function find() {
-    return db("students").select("id", "img_url");
+    return db("students").select("*");
 }
 
 function findBy(filter) {
@@ -62,9 +62,9 @@ function findPics() {
         .select("id", "img_url")
 }
 
-function addProfilePic(pic) {
+function addProfilePic(image) {
     return db('students')
-        .insert(pic, 'id');
+        .insert(image, 'id');
 }
 
 function updateProfilePic(changes, id) {

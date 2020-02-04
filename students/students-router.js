@@ -6,6 +6,7 @@ const cloudinary = require('cloudinary').v2;
 
 
 router.get('/', (req, res) => {
+  console.log('getting students')
   Students.find()
     .then(users => {
       res.status(200).json(users);
@@ -23,7 +24,7 @@ router.get('/images', (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ message: 'Failed to get profile picture urls' });
+      res.status(500).json({ message: 'Failed to get image urls' });
     });
 });
 
@@ -86,32 +87,32 @@ cloudinary.config({
   api_secret: 'R4VkwzpeZaRR_IsmH0UpXzczMpY',
 });
 
-// POST /api/drivers/:id/image
-router.post('/:id/image', (req, res) => {
-  console.log(req.files)
-  // const file = req.files;
-  // console.log(file);
-  // cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
-  //   console.log('CLOUDINARY', result);
-  //   Students.addProfilePic({ img_url: result.url, id: req.params.id })
-  //     .then(output => {
-  //       res.json({ success: true, result });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       res.status(500).json({ message: 'Error uploading to Cloudinary' });
-  //     });
-  // });
-});
+// POST /api/students/:id/image -- outdated, use PUT
+// router.post('/:id/image', (req, res) => {
+//   const file = req.files.image;
+//   console.log(file);
+//   cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
+//     console.log('CLOUDINARY', result);
+//     Students.addProfilePic({ img_url: result.url, id: req.params.id })
+//       .then(output => {
+//         res.json({ success: true, result });
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         res.status(500).json({ message: 'Error uploading to Cloudinary' });
+//       });
+//   });
+// });
 
-// PUT /api/drivers/:id/image
+// PUT /api/students/:id/image
 router.put('/:id/image', (req, res) => {
   const file = req.files.image;
+  const id = req.params.id
   // console.log('REQ', req);
-  // console.log('REQ.FILES', req.files);
+  console.log('file', file, 'id:', id);
   cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
-    // console.log('CLOUDINARY', result);
-    Students.updateProfilePic({ url: result.url }, req.body.image_id)
+    console.log('CLOUDINARY', result);
+    Students.updateProfilePic({ img_url: result.url }, id)
       .then(output => {
         res.json({ success: true, result });
       })
@@ -122,7 +123,7 @@ router.put('/:id/image', (req, res) => {
   });
 });
 
-// GET /api/drivers/:id/image
+// GET /api/students/:id/image
 router.get('/:id/image', (req, res) => {
   const { id } = req.params;
   Students.findPic(id)
@@ -131,10 +132,8 @@ router.get('/:id/image', (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ message: 'Failed to get profile picture urls' });
+      res.status(500).json({ message: 'Failed to get image urls' });
     });
 });
-
-
 
 module.exports = router;
