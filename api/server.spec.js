@@ -22,9 +22,9 @@ describe('server', function() {
             })
         })
 
-        it('should return "Its alive!"', function() {
+        it('should return "Server is online"!', function() {
             return request(server).get('/').then(res=>{
-                expect(res.text).toEqual("It's alive!");
+                expect(res.text).toEqual("<h2>Server is online!</h2><br><div>Visit: <a href='https://github.com/build-international-school/Back-End'>https://github.com/build-international-school/Back-End</a> for more API info.</div>");
             })
         })
     })
@@ -42,20 +42,20 @@ describe('server', function() {
             })
         })
 
-        it('should return "Its alive!"', function() {
+        it('should return "Auth route success"', function() {
             return request(server).get('/api/auth').then(res=>{
-                expect(res.text).toEqual("This is the auth route");
+                expect(res.text).toEqual("Auth route success");
             })
         })
     })
-    describe('POST /api/auth/register', function() {
+    describe('POST /api/auth/register/admins', function() {
         beforeEach(async () => {
-            await db('users').truncate();
+            await db('admins').truncate();
         })
         it('should return 201', function() {
             return request(server)
                 .post('/api/auth/register')
-                .send({ username: 'TestRegister', password: 'testing', type: 'admin'})
+                .send({ first_name: 'Test', last_name:'Register', email:'test@test.com', password: 'testing', type: 'admin'})
                 .then(res=>{
                     expect(res.status).toBe(201);
                 })
@@ -63,9 +63,30 @@ describe('server', function() {
         it('should return username', function() {
             return request(server)
                 .post('/api/auth/register')
-                .send({ username: 'TestRegister', password: 'testing', type: 'admin'})
+                .send({ first_name: 'Test', last_name:'Register', email:'test@test.com', password: 'testing', type: 'admin'})
                 .then(res=>{
-                    expect(res.body.username).toEqual('TestRegister')
+                    expect(res.body.first_name).toEqual('Test')
+                })
+        })
+    })
+    describe('POST /api/auth/register/workers', function() {
+        beforeEach(async () => {
+            await db('workers').truncate();
+        })
+        it('should return 201', function() {
+            return request(server)
+                .post('/api/auth/register')
+                .send({ first_name: 'Test', last_name:'Worker', email:'test@test.com', password: 'testing', type: 'worker'})
+                .then(res=>{
+                    expect(res.status).toBe(201);
+                })
+        })
+        it('should return username', function() {
+            return request(server)
+                .post('/api/auth/register')
+                .send({ first_name: 'Test', last_name:'Worker', email:'test@test.com', password: 'testing', type: 'worker'})
+                .then(res=>{
+                    expect(res.body.last_name).toEqual('Worker')
                 })
         })
     })
@@ -75,7 +96,7 @@ describe('server', function() {
         it('should return 201 ok', function() {
             return request(server)
                 .post('/api/auth/login')
-                .send({ username: 'TestRegister', password: 'testing', type: 'admin'})
+                .send({ email: 'test@test.com', password: 'testing', type: 'admin'})
                 .then(res=>{
                     expect(res.status).toBe(201);
                 })
@@ -83,9 +104,9 @@ describe('server', function() {
         it('should return token, cookie, user data', function() {
             return request(server)
                 .post('/api/auth/login')
-                .send({ username: 'TestRegister', password: 'testing', type: 'admin'})
+                .send({ email: 'test@test.com', password: 'testing', type: 'admin'})
                 .then(res=>{
-                    expect(res.body.username).toEqual('TestRegister')
+                    expect(res.body.first_name).toEqual('Test')
                     expect(res.body.token).toBeDefined()
                     token = res.body.token
                     expect(res.headers).toHaveProperty("set-cookie");
@@ -95,40 +116,61 @@ describe('server', function() {
                 })
         })
     })
-    describe('GET /api/users', function() {
+    describe('GET /api/admins', function() {
         it('should return 200 ok', function() {
             return request(server)
-                .get('/api/users')
+                .get('/api/admins')
                 .set('Authorization', token)
                 .set('Cookie', [cookies])
                 .then(res=>{
                     expect(res.status).toBe(200);
                 })
         })
-        it('should return list of users', function() {
+        it('should return list of admins', function() {
             return request(server)
-                .get('/api/users')
+                .get('/api/admins')
                 .set('Authorization', token)
                 .set('Cookie', [cookies])
                 .then(res=>{
                     expect(res.body).toBeDefined()
-                    console.log('should return list of users:', res.body)
+                    // console.log('should return list of admins:', res.body)
                 })
         })
     })
-    describe('GET /api/jokes', function() {
-        it('should return 200', function() {
+    describe('GET /api/workers', function() {
+        it('should return 200 ok', function() {
             return request(server)
-                .get('/api/jokes')
+                .get('/api/workers')
                 .set('Authorization', token)
                 .set('Cookie', [cookies])
                 .then(res=>{
                     expect(res.status).toBe(200);
                 })
         })
-        it('should return list of jokes', function() {
+        it('should return list of workers', function() {
             return request(server)
-                .get('/api/jokes')
+                .get('/api/workers')
+                .set('Authorization', token)
+                .set('Cookie', [cookies])
+                .then(res=>{
+                    expect(res.body).toBeDefined()
+                    // console.log('should return list of admins:', res.body)
+                })
+        })
+    })
+    describe('GET /api/students', function() {
+        it('should return 200', function() {
+            return request(server)
+                .get('/api/students')
+                .set('Authorization', token)
+                .set('Cookie', [cookies])
+                .then(res=>{
+                    expect(res.status).toBe(200);
+                })
+        })
+        it('should return list of students', function() {
+            return request(server)
+                .get('/api/students')
                 .set('Authorization', token)
                 .set('Cookie', [cookies])
                 .then(res=>{
