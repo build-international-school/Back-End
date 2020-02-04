@@ -14,9 +14,9 @@ const server = express();
 configMiddleware(server);
 
 server.use('/api/auth', authRouter);
-server.use('/api/admins', verifyToken, verifySession, adminsRouter);
-server.use('/api/workers', verifyToken, verifySession, workersRouter);
-server.use('/api/students', verifyToken, verifySession, studentsRouter);
+server.use('/api/admins', verifyToken, adminsRouter);
+server.use('/api/workers', verifyToken, workersRouter);
+server.use('/api/students', verifyToken, studentsRouter);
 
 server.get('/', (req, res) => {
   res.send(`<h2>Server is online!</h2><br><div>Visit: <a href='https://github.com/build-international-school/Back-End'>https://github.com/build-international-school/Back-End</a> for more API info.</div>`)
