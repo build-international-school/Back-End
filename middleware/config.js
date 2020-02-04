@@ -3,6 +3,9 @@ const session = require('express-session');
 const KnexSessionStore = require("connect-session-knex")(session);
 const helmet = require("helmet");
 const cors = require("cors");
+const fileupload = require('express-fileupload');
+
+const logger = require('./logger.js');
 
 const sessionConfig = {
     name: "Lambda Feb 2020 Buildweek",
@@ -24,8 +27,10 @@ const sessionConfig = {
 };
 
 module.exports = function(server) {
+    server.use(logger);
     server.use(helmet());
     server.use(express.json());
     server.use(cors());
+    server.use(fileupload({ useTempFiles: true }));
     server.use(session(sessionConfig));
 };

@@ -133,9 +133,30 @@ GET to ```https://issw.herokuapp.com/api/workers```
 Response Body:
 ```
 [
-  {
-
-  },
+    {
+        "id": 1,
+        "first_name": string,
+        "last_name": string,
+        "email": string,
+        "phone": string,
+        "organization": string
+    },
+    {
+        "id": 3,
+        "first_name": string,
+        "last_name": string,
+        "email": string,
+        "phone": string,
+        "organization": string
+    },
+    {
+        "id": 4,
+        "first_name": string,
+        "last_name": string,
+        "email": string,
+        "phone": string,
+        "organization": string
+    }
   ...
 ]
 ```
@@ -146,12 +167,14 @@ where id is worker id
 
 Response Body:
 ```
-[
-  {
-
-  },
-  ...
-]
+{
+    "id": 1,
+    "first_name": string,
+    "last_name": string,
+    "email": string,
+    "phone": string,
+    "organization": string
+}
 ```
 
 ## Students
@@ -162,10 +185,60 @@ GET to ```https://issw.herokuapp.com/api/students```
 Response Body:
 ```
 [
-  {
-      
-  },
-  ...
+    {
+        "id": 1,
+        "first_name": string,
+        "last_name": string,
+        "grade": string,
+        "address": string,
+        "img_url": string,
+        "background": string,
+        "status": string,
+        "age": string,
+        "insurance": 0,
+        "exp_date": string,
+        "birth_certificate": 0,
+        "special_needs": string,
+        "representative_name": string,
+        "representative_contact": string,
+        "admin_id": 1
+    },
+    {
+        "id": 2,
+        "first_name": string,
+        "last_name": string,
+        "grade": string,
+        "address": string,
+        "img_url": string,
+        "background": string,
+        "status": string,
+        "age": string,
+        "insurance": 0,
+        "exp_date": string,
+        "birth_certificate": 0,
+        "special_needs": string,
+        "representative_name": string,
+        "representative_contact": string,
+        "admin_id": 1
+    },
+    {
+        "id": 3,
+        "first_name": string,
+        "last_name": string,
+        "grade": string,
+        "address": string,
+        "img_url": string,
+        "background": string,
+        "status": string,
+        "age": string,
+        "insurance": 0,
+        "exp_date": string,
+        "birth_certificate": 0,
+        "special_needs": string,
+        "representative_name": string,
+        "representative_contact": string,
+        "admin_id": 1
+    }
 ]
 ```
 ### Get List of students by id:
@@ -174,10 +247,92 @@ where id is student id
 
 Response Body:
 ```
-[
-  {
+{
+    "id": 1,
+    "first_name": string,
+    "last_name": string,
+    "grade": string,
+    "address": string,
+    "img_url": string,
+    "background": string,
+    "status": string,
+    "age": string,
+    "insurance": 0,
+    "exp_date": string,
+    "birth_certificate": 0,
+    "special_needs": string,
+    "representative_name": string,
+    "representative_contact": string,
+    "admin_id": 1
+}
+```
 
-  },
+### Get List of students images:
+GET to ```https://issw.herokuapp.com/api/students/images```
+where id is student id
+
+Response Body:
+```
+[
+    {
+        "id": 1,
+        "img_url": string
+    },
+    {
+        "id": 2,
+        "img_url": string
+    },
+    {
+        "id": 4,
+        "img_url": string
+    }
   ...
 ]
+```
+
+### Get student image by id:
+GET to ```https://issw.herokuapp.com/api/students/:id/image```
+where id is student id (NOTE: no 's' on image)
+
+Response Body:
+```
+[
+    {
+        "id": 1,
+        "img_url": string
+    }
+  ...
+]
+```
+
+### Add/update student image by id:
+Put to ```https://issw.herokuapp.com/api/students/:id/image```
+where id is student id (NOTE: no 's' on image)
+
+Notes: send as form-data in client, append key 'image' 
+
+Response Body:
+```
+{
+    "success": true,
+    "result": {
+        "public_id": string,
+        "version": integer,
+        "signature": string,
+        "width": integer,
+        "height": integer,
+        "format": string,
+        "resource_type": string,
+        "created_at": date,
+        "tags": [],
+        "bytes": integer,
+        "type": string,
+        "etag": string,
+        "placeholder": boolean,
+        "url": string,
+        "secure_url": string,
+        "backup_url": string,
+        "original_filename": string
+    }
+}
 ```
