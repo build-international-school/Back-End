@@ -5,6 +5,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 const fileupload = require('express-fileupload');
 
+const logger = require('./logger.js');
+
 const sessionConfig = {
     name: "Lambda Feb 2020 Buildweek",
     resave: false,
@@ -25,6 +27,7 @@ const sessionConfig = {
 };
 
 module.exports = function(server) {
+    server.use(logger);
     server.use(helmet());
     server.use(express.json());
     server.use(cors());
