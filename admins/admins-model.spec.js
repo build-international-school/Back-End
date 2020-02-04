@@ -1,8 +1,8 @@
-const Users = require('./admins-model.js');
+const Admins = require('./admins-model.js');
 
 const db = require('../database/dbConfig.js');
 
-describe.skip('users model', function() {
+describe('Admins model', function() {
 
     describe('test environment', function(){
         it('should run in testing', function(){
@@ -12,55 +12,54 @@ describe.skip('users model', function() {
 
     describe('add()', function() {
         beforeEach(async () => {
-            await db('users').truncate();
+            await db('admins').truncate();
         })
         it('adds user to database', async function(){
-            await Users.add({username:'Test1', password:'Not null'});
-            await Users.add({username:'Test2', password:'Not null'});
-            await Users.add({username:'Test3', password:'Not null'});
-
-            const users = await db('users');
+            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null'});
+            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null'});
+            await Admins.add({first_name:'Test3', last_name:'Tester', email:'test3@test.com', password:'Not null'});
+            const admins = await db('admins');
             
-            expect(users).toHaveLength(3);
+            expect(admins).toHaveLength(3);
         })
     
     })
 
     describe('remove()', function() {
         beforeEach(async () => {
-            await db('users').truncate();
+            await db('admins').truncate();
         })
         it('removes user by id', async function() {
             // check table empty
-            const usersEmpty = await db('users')
-            expect(usersEmpty).toHaveLength(0);
+            const AdminsEmpty = await db('admins')
+            expect(AdminsEmpty).toHaveLength(0);
 
-            await Users.add({username:'Test1', password:'Not null'});
-            await Users.add({username:'Test2', password:'Not null'});
-            const usersAdded = await db('users')
-            expect(usersAdded).toHaveLength(2);
+            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null'});
+            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null'});
+            const adminsAdded = await db('admins')
+            expect(adminsAdded).toHaveLength(2);
 
-            await Users.remove(1)
-            const users = await db('users');
-            expect(users).toHaveLength(1);
+            await Admins.remove(1)
+            const admins = await db('admins');
+            expect(admins).toHaveLength(1);
         })
     })
 
     describe('findById()', function() {
         beforeEach(async () => {
-            await db('users').truncate();
+            await db('admins').truncate();
         })
         it('finds user by id', async function(){
-            await Users.add({username:'Test1', password:'Not null'});
-            await Users.add({username:'Test2', password:'Not null'});
-            await Users.add({username:'Test3', password:'Not null'});
+            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null'});
+            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null'});
+            await Admins.add({first_name:'Test3', last_name:'Tester', email:'test3@test.com', password:'Not null'});
 
-            const users = await db('users');
+            const admins = await db('admins');
             
-            expect(users).toHaveLength(3);
+            expect(admins).toHaveLength(3);
 
-            const user = await Users.findById(3)
-            expect(user).toEqual({ id: 3, username: "Test3"});
+            const admin = await Admins.findById(3)
+            expect(admin).toEqual({ id:3, first_name:'Test3', last_name:'Tester', email:'test3@test.com', organization: null, phone: null });
         })
     
     })
