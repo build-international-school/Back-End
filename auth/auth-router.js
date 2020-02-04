@@ -56,6 +56,7 @@ router.post('/login', (req, res) => {
         const token = signToken(user);
         req.session.loggedIn = true;
         req.session.email = user.email;
+        console.log('Admin login email:', user.email)
         const payload = {...user, token: token}
         res.status(201).json(payload);
       } else {        
@@ -67,6 +68,7 @@ router.post('/login', (req, res) => {
               const token = signToken(user);
               req.session.loggedIn = true;
               req.session.email = user.email;
+              console.log('Worker login email:', user.email)
               const payload = {...user, token: token}
               res.status(201).json(payload);
             } else {        
