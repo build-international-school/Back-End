@@ -82,6 +82,7 @@ Response Body:
  ```
 
  Response Body:
+ ```
  [
     {
         "id": (student id)
@@ -105,6 +106,7 @@ Response Body:
         ... rest of students for specified admin
     }
  ]
+ ```
 ### Update Student
 PUT to ```https://issw.herokuapp.com/api/admins/:id/students```
 
