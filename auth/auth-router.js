@@ -79,7 +79,6 @@ router.post('/login', (req, res) => {
             console.log(error)
             res.status(500).json(error);
         });
-        // res.status(404).json({ message: 'Unable to find email' });
       }
     })
     .catch(error => {

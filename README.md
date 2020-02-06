@@ -82,7 +82,8 @@ Response Body:
  ```
 
  Response Body:
- 
+ ```
+ [
     {
         "id": (student id)
         "first_name": string,
@@ -100,10 +101,14 @@ Response Body:
         "representative_name": string,
         "representative_contact": string,
         "admin_id": (admin id)
+    },
+    {
+        ... rest of students for specified admin
     }
-
+ ]
+ ```
 ### Update Student
-PUT to ```https://issw.herokuapp.com/api/admins/:id/students```
+PUT to ```https://issw.herokuapp.com/api/students/:id```
 
 Request Body:
 ```
@@ -306,7 +311,7 @@ Response Body:
 ```
 
 ### Add/update student image by id:
-Put to ```https://issw.herokuapp.com/api/students/:id/image```
+PUT to ```https://issw.herokuapp.com/api/students/:id/image```
 where id is student id (NOTE: no 's' on image)
 
 Notes: send as form-data in client, append key 'image' 
@@ -336,3 +341,9 @@ Response Body:
     }
 }
 ```
+## Author
+
+👤 **Robert Gordon**
+
+* Website: rob-gordon.com
+* Github: [@robertdgordon](https://github.com/robertdgordon)

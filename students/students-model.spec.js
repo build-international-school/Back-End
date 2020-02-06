@@ -1,8 +1,8 @@
-const Users = require('./admins-model.js');
+const Students = require('./students-model.js');
 
 const db = require('../database/dbConfig.js');
 
-describe.skip('users model', function() {
+describe('Students model', function() {
 
     describe('test environment', function(){
         it('should run in testing', function(){
@@ -12,55 +12,224 @@ describe.skip('users model', function() {
 
     describe('add()', function() {
         beforeEach(async () => {
-            await db('users').truncate();
+            await db('students').truncate();
         })
         it('adds user to database', async function(){
-            await Users.add({username:'Test1', password:'Not null'});
-            await Users.add({username:'Test2', password:'Not null'});
-            await Users.add({username:'Test3', password:'Not null'});
-
-            const users = await db('users');
+            await Students.add(
+                {
+                    id: 3,
+                    first_name: 'Alex',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '333 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 4 months',
+                    status: 'active',
+                    age: '11',
+                    insurance: false,
+                    exp_date: '',
+                    birth_certificate: true,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 2
+                }
+            );
+            await Students.add(
+                {
+                    id: 4,
+                    first_name: 'Amber',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '444 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 2 months',
+                    status: 'active',
+                    age: '11',
+                    insurance: false,
+                    exp_date: '',
+                    birth_certificate: true,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 3
+                }
+            );
+            await Students.add(
+                {
+                    id: 5,
+                    first_name: 'Amy',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '555 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 3 months',
+                    status: 'active',
+                    age: '12',
+                    insurance: false,
+                    exp_date: '',
+                    birth_certificate: true,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 3
+                }
+            );
+            const students = await db('students');
             
-            expect(users).toHaveLength(3);
+            expect(students).toHaveLength(3);
         })
     
     })
 
     describe('remove()', function() {
         beforeEach(async () => {
-            await db('users').truncate();
+            await db('students').truncate();
         })
         it('removes user by id', async function() {
             // check table empty
-            const usersEmpty = await db('users')
-            expect(usersEmpty).toHaveLength(0);
+            const studentsEmpty = await db('students')
+            expect(studentsEmpty).toHaveLength(0);
 
-            await Users.add({username:'Test1', password:'Not null'});
-            await Users.add({username:'Test2', password:'Not null'});
-            const usersAdded = await db('users')
-            expect(usersAdded).toHaveLength(2);
+            await Students.add(
+                {
+                    id: 3,
+                    first_name: 'Alex',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '333 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 4 months',
+                    status: 'active',
+                    age: '11',
+                    insurance: false,
+                    exp_date: '',
+                    birth_certificate: true,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 2
+                }
+            );
+            await Students.add(
+                {
+                    id: 4,
+                    first_name: 'Amber',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '444 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 2 months',
+                    status: 'active',
+                    age: '11',
+                    insurance: false,
+                    exp_date: '',
+                    birth_certificate: true,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 3
+                }
+            );
+            const studentsAdded = await db('students')
+            expect(studentsAdded).toHaveLength(2);
 
-            await Users.remove(1)
-            const users = await db('users');
-            expect(users).toHaveLength(1);
+            await Students.remove(4)
+            const students = await db('students');
+            expect(students).toHaveLength(1);
         })
     })
 
     describe('findById()', function() {
         beforeEach(async () => {
-            await db('users').truncate();
+            await db('students').truncate();
         })
         it('finds user by id', async function(){
-            await Users.add({username:'Test1', password:'Not null'});
-            await Users.add({username:'Test2', password:'Not null'});
-            await Users.add({username:'Test3', password:'Not null'});
-
-            const users = await db('users');
+            await Students.add(
+                {
+                    id: 3,
+                    first_name: 'Alex',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '333 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 4 months',
+                    status: 'active',
+                    age: '11',
+                    insurance: false,
+                    exp_date: '',
+                    birth_certificate: true,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 2
+                }
+            );
+            await Students.add(
+                {
+                    id: 4,
+                    first_name: 'Amber',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '444 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 2 months',
+                    status: 'active',
+                    age: '11',
+                    insurance: false,
+                    exp_date: '',
+                    birth_certificate: true,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 3
+                }
+            );
+            await Students.add(
+                {
+                    id: 5,
+                    first_name: 'Amy',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '555 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 3 months',
+                    status: 'active',
+                    age: '12',
+                    insurance: false,
+                    exp_date: '',
+                    birth_certificate: true,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 3
+                }
+            );
+            const students = await db('students');
             
-            expect(users).toHaveLength(3);
+            expect(students).toHaveLength(3);
 
-            const user = await Users.findById(3)
-            expect(user).toEqual({ id: 3, username: "Test3"});
+            const student = await Students.findById(3)
+            expect(student).toEqual(
+                {
+                    id: 3,
+                    first_name: 'Alex',
+                    last_name: 'Smith',
+                    grade: '4',
+                    address: '333 Ever St., Alexandria, VA 00000',
+                    img_url: '',
+                    background: 'I have been learning programming for 4 months',
+                    status: 'active',
+                    age: 11,
+                    insurance: 0,
+                    exp_date: '',
+                    birth_certificate: 1,
+                    special_needs: 'no',
+                    representative_name: 'mother',
+                    representative_contact: '1231231234',
+                    admin_id: 2
+                }
+            );
         })
     
     })
