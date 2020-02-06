@@ -178,5 +178,27 @@ describe('server', function() {
                     // console.log(res.body)
                 })
         })
+    })
+    describe('POST /api/logout', function() {
+        it('should return 200', function() {
+            return request(server)
+                .get('/api/auth/logout')
+                .set('Authorization', token)
+                .set('Cookie', [cookies])
+                .then(res=>{
+                    expect(res.status).toBe(200);
+                    // console.log(res)
+                })
+        })
+        it('should return success message', function() {
+            return request(server)
+                .get('/api/logout')
+                .set('Authorization', token)
+                .set('Cookie', [cookies])
+                .then(res=>{
+                    expect(res.body).toBeDefined()
+                    // console.log(res)
+                })
+        })
     })        
 })
