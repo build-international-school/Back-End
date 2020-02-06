@@ -11,7 +11,8 @@ exports.seed = function(knex) {
           email: 'test@test.com',
           password: bcrypt.hashSync('testtest', 10),
           phone: '555-555-1234',
-          organization: 'International School'
+          organization: 'International School',
+          type: 'admin'
       },
       {
           id: 2,
@@ -20,7 +21,8 @@ exports.seed = function(knex) {
           email: 'c0der.br1t@gmail.com',
           password: bcrypt.hashSync('testtest', 10),
           phone: '913-701-4016',
-          organization: 'Lambda School'
+          organization: 'Lambda School',
+          type: 'admin'
       },
       {
           id: 3,
@@ -29,7 +31,8 @@ exports.seed = function(knex) {
           email: 'xynova.333@gmail.com',
           password: bcrypt.hashSync('testtest', 10),
           phone: '913-701-4016',
-          organization: 'Lambda School'
+          organization: 'Lambda School',
+          type: 'admin'
       }
       ]);
     });

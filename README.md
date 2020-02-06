@@ -25,6 +25,7 @@ Response Body:
         "email": string,
         "phone": string,
         "organization": string,
+        "type": string,
         "token": string (will be required for protected routes)
     }
   
@@ -51,6 +52,7 @@ Response Body:
         "password": string (hashed),
         "phone": string,
         "organization": string,
+        "type": string,
         "token": string
     }
 ```
@@ -144,7 +146,8 @@ Response Body:
         "last_name": string,
         "email": string,
         "phone": string,
-        "organization": string
+        "organization": string,
+        "type": string
     },
     {
         "id": 3,
@@ -152,7 +155,8 @@ Response Body:
         "last_name": string,
         "email": string,
         "phone": string,
-        "organization": string
+        "organization": string,
+        "type": string,
     },
     {
         "id": 4,
@@ -160,7 +164,8 @@ Response Body:
         "last_name": string,
         "email": string,
         "phone": string,
-        "organization": string
+        "organization": string,
+        "type": string,
     }
   ...
 ]
@@ -178,7 +183,8 @@ Response Body:
     "last_name": string,
     "email": string,
     "phone": string,
-    "organization": string
+    "organization": string,
+    "type": string,
 }
 ```
 

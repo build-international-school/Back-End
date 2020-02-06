@@ -19,18 +19,18 @@ function add(user) {
         });
 }
 function find() {
-    return db("admins").select("id", "first_name", "last_name", "email", "phone", "organization");
+    return db("admins").select("id", "first_name", "last_name", "email", "phone", "organization", "type");
 }
 
 function findBy(filter) {
     return db("admins")
-        .select("id", "first_name", "last_name", "email", "phone", "organization", "password")
+        .select("id", "first_name", "last_name", "email", "phone", "organization", "password",  "type")
         .where(filter);
 }
 
 function findById(id) {
     return db("admins")
-        .select("id", "first_name", "last_name", "email", "phone", "organization")
+        .select("id", "first_name", "last_name", "email", "phone", "organization",  "type")
         .where({ id })
         .first();
 }
