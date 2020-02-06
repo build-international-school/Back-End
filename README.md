@@ -347,6 +347,14 @@ Response Body:
     }
 }
 ```
+## Logout
+### Get user log out:
+GET to ```https://issw.herokuapp.com/api/auth/logout```
+
+Response Body:
+```
+    { message: User successfully logged out}
+```
 ## Author
 
 👤 **Robert Gordon**
