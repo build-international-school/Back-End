@@ -15,9 +15,9 @@ describe('Admins model', function() {
             await db('admins').truncate();
         })
         it('adds user to database', async function(){
-            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null'});
-            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null'});
-            await Admins.add({first_name:'Test3', last_name:'Tester', email:'test3@test.com', password:'Not null'});
+            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null', type:'admin'});
+            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null', type:'admin'});
+            await Admins.add({first_name:'Test3', last_name:'Tester', email:'test3@test.com', password:'Not null', type:'admin'});
             const admins = await db('admins');
             
             expect(admins).toHaveLength(3);
@@ -34,8 +34,8 @@ describe('Admins model', function() {
             const AdminsEmpty = await db('admins')
             expect(AdminsEmpty).toHaveLength(0);
 
-            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null'});
-            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null'});
+            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null', type:'admin'});
+            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null', type:'admin'});
             const adminsAdded = await db('admins')
             expect(adminsAdded).toHaveLength(2);
 
@@ -50,16 +50,16 @@ describe('Admins model', function() {
             await db('admins').truncate();
         })
         it('finds user by id', async function(){
-            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null'});
-            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null'});
-            await Admins.add({first_name:'Test3', last_name:'Tester', email:'test3@test.com', password:'Not null'});
+            await Admins.add({first_name:'Test1', last_name:'Tester', email:'test1@test.com', password:'Not null', type:'admin'});
+            await Admins.add({first_name:'Test2', last_name:'Tester', email:'test2@test.com', password:'Not null', type:'admin'});
+            await Admins.add({first_name:'Test3', last_name:'Tester', email:'test3@test.com', password:'Not null', type:'admin'});
 
             const admins = await db('admins');
             
             expect(admins).toHaveLength(3);
 
             const admin = await Admins.findById(3)
-            expect(admin).toEqual({ id:3, first_name:'Test3', last_name:'Tester', email:'test3@test.com', organization: null, phone: null });
+            expect(admin).toEqual({ id:3, first_name:'Test3', last_name:'Tester', email:'test3@test.com', organization: null, phone: null, type: 'admin' });
         })
     
     })
