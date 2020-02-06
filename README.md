@@ -108,7 +108,7 @@ Response Body:
  ]
  ```
 ### Update Student
-PUT to ```https://issw.herokuapp.com/api/admins/:id/students```
+PUT to ```https://issw.herokuapp.com/api/students/:id```
 
 Request Body:
 ```
@@ -311,7 +311,7 @@ Response Body:
 ```
 
 ### Add/update student image by id:
-Put to ```https://issw.herokuapp.com/api/students/:id/image```
+PUT to ```https://issw.herokuapp.com/api/students/:id/image```
 where id is student id (NOTE: no 's' on image)
 
 Notes: send as form-data in client, append key 'image' 
